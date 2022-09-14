@@ -10,7 +10,6 @@ import AlamofireImage
 
 class ViewController: UIViewController, UITableViewDataSource , UITableViewDelegate{
 
-    
 
     @IBOutlet weak var tableView: UITableView!
     var movies = [[String:Any]]()
@@ -69,6 +68,21 @@ class ViewController: UIViewController, UITableViewDataSource , UITableViewDeleg
         
         
         return cell
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        print("Loading up the details screen")
+        let cell = sender as! UITableViewCell
+        let indexPath = tableView.indexPath(for: cell)!
+        let movie = movies[indexPath.row]
+        
+        let detailsViewController = segue.destination as! MovieDetailsViewController
+        
+        detailsViewController.movie = movie
+
+       // print(movie["title"])
+        tableView.deselectRow(at: indexPath, animated: true)
+        //detailsViewController.movie = movie 
     }
 }
 
